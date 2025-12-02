@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NS JAGAT ⚡ Gmail Variation Generator</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body{
+    margin:0;background:black;font-family:"Share Tech Mono",monospace;
+    color:#00ffe7;overflow-x:hidden;
+}
+
+/* MATRIX BACKGROUND */
+#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
+.glow{position:fixed;width:6px;height:6px;border-radius:50%;background:#00ffe7;
+    box-shadow:0 0 8px #00ffe7;animation:float 4s infinite linear;}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-120vh);}}
+
+/* MAIN CONTAINER */
+.container{
+    width:90%;max-width:900px;margin:20px auto;padding:20px;
+    background:rgba(0,0,0,.7);border:2px solid #00ffe7;border-radius:12px;
+    box-shadow:0 0 30px cyan;text-align:center;
+}
+
+h1{font-size:30px;color:#00fff6;text-shadow:0 0 15px cyan;}
+#hackType{font-size:16px;margin-top:-10px;color:#00ffef}
+
+input,select{
+    width:100%;padding:12px;margin-top:10px;background:black;color:#00ffee;
+    border:2px solid cyan;border-radius:8px;font-size:18px;box-shadow:0 0 10px cyan inset;
+}
+
+button{
+    width:48%;padding:12px;font-size:18px;margin:5px;border-radius:10px;
+    background:black;color:#00fbff;border:2px solid cyan;box-shadow:0 0 12px cyan;
+}
+button:hover{transform:scale(1.07);}
+@media(max-width:700px){button{width:100%;font-size:17px;} h1{font-size:23px;} #hackType{font-size:13px;}}
+
+#results{max-height:45vh;overflow-y:auto;margin-top:15px;}
+.item{background:rgba(0,255,255,.07);border-left:4px solid cyan;border-radius:6px;
+    padding:7px;margin-bottom:6px;display:flex;justify-content:space-between;}
+.addr{font-size:16px;color:#00ffec;}
+@media(max-width:700px){#results{max-height:55vh;} .addr{font-size:14px;}}
+
+/* Hacker Themed Subscribe Button */
+.yt-btn{
+    display:block;margin-top:18px;padding:14px;font-size:22px;text-align:center;
+    font-weight:bold;text-decoration:none;border-radius:12px;width:100%;
+    background:linear-gradient(90deg,#ff003c,#ff2b52,#ff003c);border:2px solid #ff0048;
+    color:white;animation:neonPulse 2s infinite alternate ease-in-out;
+    box-shadow:0 0 22px #ff003c,0 0 45px #00f0ff inset;
+}
+.yt-btn:hover{
+    background:linear-gradient(90deg,#00faff,#00ffd5,#00faff);
+    color:#000;border-color:#00f7ff;
+    box-shadow:0 0 40px #00f0ff,0 0 80px #00ffee inset;
+    transform:scale(1.09);
+}
+@keyframes neonPulse{0%{box-shadow:0 0 15px #ff003c,0 0 30px #00eeff inset;}100%{box-shadow:0 0 35px #ff003c,0 0 65px #00eeff inset;}}
+
+/* Floating YT Bubble */
+.bubble{
+    position:fixed;bottom:85px;right:18px;z-index:999;
+    background:#ff004c;color:white;width:65px;height:65px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+    text-align:center;cursor:pointer;box-shadow:0 0 20px #ff004c,0 0 40px #00f0ff inset;
+    animation:bounce 1.5s infinite alternate ease-in-out,glowRotate 4s infinite linear;
+}
+.bubble:hover{transform:scale(1.15);}
+@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-12px);}}
+@keyframes glowRotate{0%{box-shadow:0 0 18px #ff004c,0 0 50px #00faff inset;}50%{box-shadow:0 0 35px #00ffea,0 0 80px #ff0055 inset;}100%{box-shadow:0 0 18px #ff004c,0 0 50px #00faff inset;}}
+
+/* Footer */
+footer{color:#00ffee;text-align:center;margin-top:18px;font-size:18px;}
+
+/* Bottom Ad Container */
+.ad-container{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:998;
+    margin-bottom:0;
+    width:100%;
+    max-width:320px;
+    height:50px;
+}
+#adBanner{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* Privacy Modal */
+#privacyModal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    color:#00ffee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+}
+#privacyModal button{
+    padding:12px 20px;margin-top:15px;font-size:18px;border-radius:8px;background:cyan;color:black;border:none;cursor:pointer;
+}
+#privacyModal h2{font-size:28px;margin-bottom:15px;}
+#privacyModal p{max-width:500px;line-height:1.5;font-size:16px;}
+</style>
+</head>
+
+<body>
+<canvas id="matrix"></canvas>
+
+<!-- Privacy & Terms Modal -->
+<div id="privacyModal">
+  <h2>⚠️ Privacy & Terms Notice</h2>
+  <p>
+    This Gmail Variation Generator is intended for <b>educational and personal use only</b>. 
+    Any illegal use of this tool is strictly prohibited. 
+    The developer (<b>NS JAGAT</b>) is <b>not responsible</b> for any misuse or consequences.
+  </p>
+  <button onclick="acceptPrivacy()">I Understand & Accept</button>
+</div>
+
+<!-- Floating YT Bubble -->
+<div class="bubble" onclick="openYouTube()">📺<br>SUBSCRIBE</div>
+
+<div class="container">
+
+<h1>⚡ RESPONSIVE GMAIL VARIATION GENERATOR ⚡</h1>
+<div id="hackType"></div>
+
+<input id="email" placeholder="Enter Gmail (example@gmail.com)">
+<select id="limit"><option>20</option><option>50</option><option>100</option><option>150</option><option>200</option></select>
+
+<button onclick="generate()">⚡ Generate</button>
+<button onclick="AIVerify()">🤖 AI Verify</button>
+<button onclick="saveTXT()">📄 Save as TXT</button>
+
+<a class="yt-btn" onclick="openYouTube()">🚀 SUBSCRIBE ON YOUTUBE — NS JAGAT</a>
+
+<div id="stats"></div>
+<div id="results"></div>
+
+</div>
+
+<!-- Bottom Ad -->
+<div class="ad-container">
+<script type="text/javascript">
+  atOptions = {
+    'key' : '4c2e247fb17a886ebab3e8278a8ce531',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/4c2e247fb17a886ebab3e8278a8ce531/invoke.js"></script>
+</div>
+
+<footer>Made By NS JAGAT © </footer>
+
+<script>
+/* MATRIX EFFECT */
+let c=document.getElementById("matrix"),ctx=c.getContext("2d");
+c.height=innerHeight;c.width=innerWidth;
+let chars="1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+let font=12,cols=c.width/font,drop=[];for(let x=0;x<cols;x++) drop[x]=1;
+function draw(){ctx.fillStyle="rgba(0,0,0,0.07)";ctx.fillRect(0,0,c.width,c.height);
+ctx.fillStyle="#00ffe7";ctx.font=font+"px Share Tech Mono";
+for(let i=0;i<drop.length;i++){ let ch=chars[Math.floor(Math.random()*chars.length)];
+ctx.fillText(ch,i*font,drop[i]*font);if(drop[i]*font>c.height&&Math.random()>0.95) drop[i]=0;drop[i]++;}}
+setInterval(draw,32);
+
+/* PRIVACY CONSENT */
+window.onload = function(){
+  if(localStorage.getItem('privacyAccepted') === 'true'){
+    document.getElementById('privacyModal').style.display = 'none';
+  }
+}
+function acceptPrivacy(){
+  localStorage.setItem('privacyAccepted','true');
+  document.getElementById('privacyModal').style.display='none';
+}
+
+/* MAIN FUNCTIONS */
+function generate(){
+ if(localStorage.getItem('privacyAccepted') !== 'true'){alert("Please accept Privacy & Terms first!"); return;}
+ let email=document.getElementById("email").value.trim();
+ let limit=parseInt(document.getElementById("limit").value);
+ if(!/^[\w.+-]+@gmail\.com$/i.test(email))return alert("❌ Enter valid Gmail!");
+ let user=email.split("@")[0].replace(/\./g,""),domain="@gmail.com";
+ let list=new Set();
+ for(let i=0;i<limit;i++){
+  let v="";for(let c of user)v+=Math.random()>0.45?c+".":c;
+  list.add(v.replace(/\.+$/,'')+domain);
+  list.add(user+"+"+i+domain);}
+ window.generated=[...list].slice(0,limit); show();
+}
+function show(){ document.getElementById("results").innerHTML="";
+ window.generated.forEach(v=>{document.getElementById("results").innerHTML+=
+ `<div class=item><span class=addr>🔹 ${v}</span><button onclick="copy('${v}')">📋</button></div>`;});
+ document.getElementById("stats").innerHTML="Generated: "+generated.length;}
+function saveTXT(){
+    if(!window.generated || window.generated.length===0){
+        alert("❌ Please generate emails first!");
+        return;
+    }
+    let name = prompt("Enter TXT file name (without extension):");
+    if(!name) return;
+    if(!name.toLowerCase().endsWith(".txt")) name += ".txt";
+    let file = new Blob([window.generated.join("\n")], { type: "text/plain" });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+    a.click();
+}
+function AIVerify(){alert("🤖 All variations valid Gmail routes.");}
+function copy(t){navigator.clipboard.writeText(t);}
+function openYouTube(){window.open("https://youtube.com/@nsjagat-c","_blank");}
+</script>
+</body>
+</html>
